@@ -1,3 +1,6 @@
+.metadata
+service/.project
+service/.pydevproject
 *.py[cod]
 
 # C extensions
