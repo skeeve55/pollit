@@ -1,0 +1,1 @@
+D:\Installationen\python27 32bit\python "D:\Installationen\python27 32bit\Lib\site-packages\easy_install.py" flask

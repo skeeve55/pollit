@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+<table>
+	<thead>
+		<tr>
+			<th>Topic</th>
+			<th>Date</th>
+			<th>Author</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for poll in polls %}
+		<tr>
+			<td>{{poll.topic}}</td>
+			<td>{{poll.creation}}</td>
+			<td>{{poll.user}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
