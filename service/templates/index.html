@@ -9,6 +9,7 @@
 			<th>Author</th>
 		</tr>
 	</thead>
+	
 	<tbody>
 		{% for poll in polls %}
 		<tr>
@@ -21,8 +22,15 @@
 			<tr>
 				<td>{{vote[1]}}</td>
 				<td>{{vote[2]}}</td>
+				<td><button class="btn btn-info">+1</button></td>
 			</tr>
-			{% endfor %}				
+			{% endfor %}
+			
+			<tr>
+				<td colspan="3">
+					<input class="span2"/>
+				</td>
+			</tr>				
 		{% endfor %}
 	</tbody>
 </table>
