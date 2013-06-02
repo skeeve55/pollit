@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 02. Jun 2013 um 21:13
+-- Erstellungszeit: 02. Jun 2013 um 22:05
 -- Server Version: 5.5.27
 -- PHP-Version: 5.4.7
 
@@ -74,9 +74,20 @@ CREATE TABLE IF NOT EXISTS `user_votes` (
   `User_Id` int(11) NOT NULL,
   `Vote_Id` int(11) NOT NULL,
   `Creation` datetime NOT NULL,
+  PRIMARY KEY (`User_Id`,`Vote_Id`),
   UNIQUE KEY `User_Id_2` (`User_Id`,`Vote_Id`),
   KEY `Vote_Id` (`Vote_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `user_votes`
+--
+
+INSERT INTO `user_votes` (`User_Id`, `Vote_Id`, `Creation`) VALUES
+(1, 1, '2013-06-01 00:00:00'),
+(1, 2, '0000-00-00 00:00:00'),
+(2, 1, '2013-06-12 00:00:00'),
+(3, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

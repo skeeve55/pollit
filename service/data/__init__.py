@@ -14,7 +14,8 @@ class DbUser(Base):
 class DbVote(Base):
     __tablename__ = 'votes'
     id = Column(Integer, primary_key=True)
-    vote = Column(Text)    
+    vote = Column(Text)
+    poll_id = Column(Integer, ForeignKey("polls.id"))    
     creation = Column(Text)
     
 class DbPoll(Base):
@@ -22,5 +23,11 @@ class DbPoll(Base):
     id = Column(Integer, primary_key=True)
     topic = Column(Text)
     user_id = Column(Integer, ForeignKey("users.id"))
-    user = relationship("DbUser")    
+    user = relationship("DbUser")  
+    votes = relationship("DbVote")
     creation = Column(Text)  
+    
+class DbUserVote(Base):
+    __tablename__ = 'user_votes'
+    user_id = Column(Integer, ForeignKey("users.id"), primary_key=True)
+    vote_id = Column(Integer, ForeignKey("votes.id"), primary_key=True)

@@ -14,8 +14,15 @@
 		<tr>
 			<td>{{poll.topic}}</td>
 			<td>{{poll.creation}}</td>
-			<td>{{poll.user}}</td>
+			<td>{{poll.user}}</td>			
 		</tr>
+		
+			{% for vote in poll.votes %}
+			<tr>
+				<td>{{vote[1]}}</td>
+				<td>{{vote[2]}}</td>
+			</tr>
+			{% endfor %}				
 		{% endfor %}
 	</tbody>
 </table>

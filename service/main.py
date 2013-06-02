@@ -1,8 +1,10 @@
 import flask
-
-from flask.ext.sqlalchemy import SQLAlchemy  # @UnresolvedImport
 import data
+import logging
 
+from werkzeug._internal import _log
+from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 
 config = {}
 config['schema'] = "mysql" 
@@ -19,9 +21,8 @@ app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = dbConnectionString
 app.debug = True
 
-
-
 db = SQLAlchemy(app)
+
 def get_all_polls():
     polls = []
     
@@ -31,11 +32,23 @@ def get_all_polls():
         pollData['topic'] = response.topic
         pollData['creation'] = response.creation.strftime('%d.%m.%Y %H:%M:%S')
         pollData['user'] = response.user.username
+        
+        pollData['votes'] = []
+        for vote in response.votes:
+            pollData['votes'].append((vote.id, vote.vote, get_user_votes_for_vote(vote.id)))        
+        
         polls.append(pollData)
     return polls
-     
+
+def get_user_votes_for_vote(vote_id):
+    result = db.session.query(data.DbUserVote).filter(data.DbUserVote.vote_id == vote_id).count()                
+    return result
+
+@app.route('/test/<int:vote_id>')
+def return_user_votes_for_vote(vote_id):
+    return flask.jsonify({"count" : get_user_votes_for_vote(vote_id)})
+        
 @app.route("/")
-@app.route('/test')
 def return_all_polls_as_html():
     return flask.render_template('index.html', polls = get_all_polls() )
 
