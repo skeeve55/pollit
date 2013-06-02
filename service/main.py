@@ -1,5 +1,6 @@
 import flask
 import data
+import time
 import logging
 
 from werkzeug._internal import _log
@@ -30,7 +31,7 @@ def get_all_polls():
         pollData = {}
         pollData['id'] = response.id
         pollData['topic'] = response.topic
-        pollData['creation'] = response.creation.strftime('%d.%m.%Y %H:%M:%S')
+        pollData['creation'] = response.creation.strftime('%d.%m.%Y')
         pollData['user'] = response.user.username
         
         pollData['votes'] = []
@@ -44,9 +45,18 @@ def get_user_votes_for_vote(vote_id):
     result = db.session.query(data.DbUserVote).filter(data.DbUserVote.vote_id == vote_id).count()                
     return result
 
-@app.route('/test/<int:vote_id>')
-def return_user_votes_for_vote(vote_id):
-    return flask.jsonify({"count" : get_user_votes_for_vote(vote_id)})
+@app.route('/test/')
+def return_test():
+    try:
+        new_user_vote = data.DbUserVote()
+        new_user_vote.user_id = 1
+        new_user_vote.vote_id = 2
+        db.session.add(new_user_vote)
+        db.session.commit()
+    except: 
+        db.session.rollback()
+    finally:    
+        return flask.jsonify({"count" : get_user_votes_for_vote(2)})
         
 @app.route("/")
 def return_all_polls_as_html():
@@ -55,8 +65,6 @@ def return_all_polls_as_html():
 @app.route("/polls")
 def return_all_polls_as_jason():
     return flask.jsonify({"polls" : get_all_polls()})
-
-
 
 if __name__ == "__main__":
     app.run()
