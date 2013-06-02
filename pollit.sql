@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 02. Jun 2013 um 20:31
+-- Erstellungszeit: 02. Jun 2013 um 21:13
 -- Server Version: 5.5.27
 -- PHP-Version: 5.4.7
 
@@ -53,14 +53,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(100) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Daten für Tabelle `users`
 --
 
 INSERT INTO `users` (`Id`, `Username`) VALUES
-(1, 'rischat');
+(1, 'rischat'),
+(2, 'Aggra'),
+(3, 'Tzernu');
 
 -- --------------------------------------------------------
 
@@ -73,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `user_votes` (
   `Vote_Id` int(11) NOT NULL,
   `Creation` datetime NOT NULL,
   UNIQUE KEY `User_Id_2` (`User_Id`,`Vote_Id`),
-  KEY `User_Id` (`User_Id`),
   KEY `Vote_Id` (`Vote_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -92,7 +93,15 @@ CREATE TABLE IF NOT EXISTS `votes` (
   PRIMARY KEY (`Id`),
   KEY `User_Id` (`User_Id`),
   KEY `Poll_Id` (`Poll_Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Daten für Tabelle `votes`
+--
+
+INSERT INTO `votes` (`Id`, `Vote`, `User_Id`, `Creation`, `Poll_Id`) VALUES
+(1, 'Erste Antwort', 1, '2013-06-02 00:00:00', 1),
+(2, 'Zweite Antwort', 1, '2013-05-07 00:00:00', 1);
 
 --
 -- Constraints der exportierten Tabellen
@@ -103,6 +112,13 @@ CREATE TABLE IF NOT EXISTS `votes` (
 --
 ALTER TABLE `polls`
   ADD CONSTRAINT `polls_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `users` (`Id`);
+
+--
+-- Constraints der Tabelle `user_votes`
+--
+ALTER TABLE `user_votes`
+  ADD CONSTRAINT `user_votes_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `users` (`Id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_votes_ibfk_2` FOREIGN KEY (`Vote_Id`) REFERENCES `votes` (`Id`) ON DELETE CASCADE;
 
 --
 -- Constraints der Tabelle `votes`
