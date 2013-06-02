@@ -16,19 +16,11 @@ class DbVote(Base):
     id = Column(Integer, primary_key=True)
     vote = Column(Text)    
     creation = Column(Text)
-    #poll_id = Column(Integer, ForeignKey(DbPoll.id))
-    
-#http://docs.sqlalchemy.org/en/rel_0_8/orm/relationships.html ICH WEISS
-association_table = Table('association', Base.metadata,
-    Column('left_id', Integer, ForeignKey('left.id')),
-    Column('right_id', Integer, ForeignKey('right.id'))
-)
     
 class DbPoll(Base):
     __tablename__ = 'polls'
     id = Column(Integer, primary_key=True)
     topic = Column(Text)
-    user_id = Column(Integer, ForeignKey(DbUser.id))
-    user = relationship(DbUser)    
-    #votes = relationship(DbVote)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("DbUser")    
     creation = Column(Text)  
