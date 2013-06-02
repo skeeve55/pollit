@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 02. Jun 2013 um 22:05
+-- Erstellungszeit: 02. Jun 2013 um 22:51
 -- Server Version: 5.5.27
 -- PHP-Version: 5.4.7
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `polls` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Topic` varchar(200) NOT NULL,
   `User_Id` int(11) NOT NULL,
-  `Creation` datetime NOT NULL,
+  `Creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   KEY `User_Id` (`User_Id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `polls` (
 --
 
 INSERT INTO `polls` (`Id`, `Topic`, `User_Id`, `Creation`) VALUES
-(1, 'testi', 1, '2013-06-04 00:00:00'),
-(2, 'nagnag', 1, '2013-05-21 00:00:00');
+(1, 'testi', 1, '0000-00-00 00:00:00'),
+(2, 'nagnag', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,7 @@ INSERT INTO `users` (`Id`, `Username`) VALUES
 CREATE TABLE IF NOT EXISTS `user_votes` (
   `User_Id` int(11) NOT NULL,
   `Vote_Id` int(11) NOT NULL,
-  `Creation` datetime NOT NULL,
+  `Creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`User_Id`,`Vote_Id`),
   UNIQUE KEY `User_Id_2` (`User_Id`,`Vote_Id`),
   KEY `Vote_Id` (`Vote_Id`)
@@ -84,10 +84,7 @@ CREATE TABLE IF NOT EXISTS `user_votes` (
 --
 
 INSERT INTO `user_votes` (`User_Id`, `Vote_Id`, `Creation`) VALUES
-(1, 1, '2013-06-01 00:00:00'),
-(1, 2, '0000-00-00 00:00:00'),
-(2, 1, '2013-06-12 00:00:00'),
-(3, 1, '0000-00-00 00:00:00');
+(1, 1, '2013-06-02 20:49:39');
 
 -- --------------------------------------------------------
 
@@ -99,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `votes` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Vote` varchar(100) NOT NULL,
   `User_Id` int(11) NOT NULL,
-  `Creation` datetime NOT NULL,
   `Poll_Id` int(11) NOT NULL,
+  `Creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   KEY `User_Id` (`User_Id`),
   KEY `Poll_Id` (`Poll_Id`)
@@ -110,9 +107,9 @@ CREATE TABLE IF NOT EXISTS `votes` (
 -- Daten für Tabelle `votes`
 --
 
-INSERT INTO `votes` (`Id`, `Vote`, `User_Id`, `Creation`, `Poll_Id`) VALUES
-(1, 'Erste Antwort', 1, '2013-06-02 00:00:00', 1),
-(2, 'Zweite Antwort', 1, '2013-05-07 00:00:00', 1);
+INSERT INTO `votes` (`Id`, `Vote`, `User_Id`, `Poll_Id`, `Creation`) VALUES
+(1, 'Erste Antwort', 1, 1, '2013-05-31 22:00:00'),
+(2, 'Zweite Antwort', 1, 1, '2013-06-01 22:00:00');
 
 --
 -- Constraints der exportierten Tabellen
