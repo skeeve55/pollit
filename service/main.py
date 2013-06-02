@@ -45,14 +45,17 @@ def get_user_votes_for_vote(vote_id):
     result = db.session.query(data.DbUserVote).filter(data.DbUserVote.vote_id == vote_id).count()                
     return result
 
+def insert_user_vote(user_id, vote_id):
+    new_user_vote = data.DbUserVote()
+    new_user_vote.user_id = user_id
+    new_user_vote.vote_id = vote_id
+    db.session.add(new_user_vote)
+    db.session.commit()
+
 @app.route('/test/')
 def return_test():
     try:
-        new_user_vote = data.DbUserVote()
-        new_user_vote.user_id = 1
-        new_user_vote.vote_id = 2
-        db.session.add(new_user_vote)
-        db.session.commit()
+        insert_user_vote(1, 2);
     except: 
         db.session.rollback()
     finally:    
