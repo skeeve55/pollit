@@ -1,37 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Index{% endblock %}
 {% block content %}
-<table>
-	<thead>
-		<tr>
-			<th>Topic</th>
-			<th>Date</th>
-			<th>Author</th>
-		</tr>
-	</thead>
-	
-	<tbody>
-		{% for poll in polls %}
-		<tr>
-			<td>{{poll.topic}}</td>
-			<td>{{poll.creation}}</td>
-			<td>{{poll.user}}</td>			
-		</tr>
-		
-			{% for vote in poll.votes %}
-			<tr>
-				<td>{{vote[1]}}</td>
-				<td>{{vote[2]}}</td>
-				<td><button class="btn btn-info">+1</button></td>
-			</tr>
-			{% endfor %}
+
+	{% for poll in polls %}
+		<div class="row-fluid">
+			<div class="span1">
+				<h2>{{loop.index}}</h2>
+			</div>
 			
-			<tr>
-				<td colspan="3">
-					<input class="span2"/>
-				</td>
-			</tr>				
-		{% endfor %}
-	</tbody>
-</table>
+			<div class="span11">
+				<small>{{poll.creation}}</small>
+				<small>({{poll.user}})</small>				
+				
+				<h2>{{poll.topic}}</h2>
+				
+				<ul class="unstyled">
+				{% for vote in poll.votes %}
+					<li>
+						<span class="span8">{{vote[1]}} ({{vote[2]}})</span>						
+						<button class="btn btn-info span1">+1</button>
+					</li>
+				{% endfor %}
+				
+					<li>
+						<span class="span8"><input /></span>
+						<button class="btn btn-success span1">+1</button>
+					</li>
+				</ul>
+			</div>
+		</div>		
+		
+		<hr />
+	{% endfor %}
 {% endblock %}
