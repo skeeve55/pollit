@@ -18,8 +18,10 @@ class FlaskApp:
         self.db = SQLAlchemy(self.app)
         self.dataAccess = DataAccess(self.db)
         
-        # Create Url routing
+        # Create Url routing (Html)
         self.app.add_url_rule('/', 'get_all_polls_as_html', self.get_all_polls_as_html)
+        
+        # Create Url routing (Service)        
         self.app.add_url_rule('/polls', 'get_all_polls_as_jason', self.get_all_polls_as_jason)
         self.app.add_url_rule('/test', 'get_test', self.get_test)
         
