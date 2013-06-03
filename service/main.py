@@ -70,5 +70,5 @@ def return_all_polls_as_jason():
     return flask.jsonify({"polls" : get_all_polls()})
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="localhost")
 
