@@ -1,18 +1,14 @@
 import flask  # @UnresolvedImport
-
 from flask.ext.sqlalchemy import SQLAlchemy  # @UnresolvedImport
 
-from DataAccess import DataAccess
 from Config import Config
+from DataAccess import DataAccess
+from FlaskApp import FlaskApp
 
 config = Config()
-
-app = flask.Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = config.get_db_connection_strin()
-app.debug = True
-
-db = SQLAlchemy(app)
-
+flaskApp = FlaskApp(config.get_db_connection_string(), config.get_flask_host())
+app = flaskApp.get_app()
+db = flaskApp.get_db()
 dataAccess = DataAccess(db)
 
 @app.route('/test/')
@@ -33,5 +29,4 @@ def return_all_polls_as_jason():
     return flask.jsonify({"polls" : dataAccess.get_all_polls()})
 
 if __name__ == "__main__":
-    app.run(host=config.get_flask_host())
-
+    flaskApp.run()

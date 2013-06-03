@@ -9,7 +9,7 @@ class Config:
         
     config['flask_host'] = "localhost"
 
-    def get_db_connection_strin(self):
+    def get_db_connection_string(self):
         if self.config['db_password'] == "":
             return "%s://%s@%s:%s/%s" % (self.config['db_schema'], self.config['db_user'], self.config['db_host'], self.config['db_port'], self.config['db_database'])
         else :
