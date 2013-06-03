@@ -3,4 +3,7 @@ pollit
 
 Voting
 
-test comment
+
+Needs:
+- flask
+- Flask-SQLAlchemy
