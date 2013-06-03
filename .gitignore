@@ -38,4 +38,4 @@ nosetests.xml
 .pydevproject
 
 # compiled
-.pyc
+*.pyc
