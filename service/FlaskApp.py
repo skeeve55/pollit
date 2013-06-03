@@ -2,7 +2,7 @@ import flask  # @UnresolvedImport
 from flask.ext.sqlalchemy import SQLAlchemy  # @UnresolvedImport
 
 from Config import Config
-from DataAccess import DataAccess
+from data.DataAccess import DataAccess
 
 class FlaskApp:
     def __init__(self):

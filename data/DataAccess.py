@@ -1,7 +1,7 @@
-from DbPoll import DbPoll
-from DbUserVote import DbUserVote
-from DbUser import DbUser  # @UnusedImport
-from DbVote import DbVote  # @UnusedImport
+from model.DbPoll import DbPoll
+from model.DbUserVote import DbUserVote
+from model.DbUser import DbUser  # @UnusedImport
+from model.DbVote import DbVote  # @UnusedImport
 
 class DataAccess:      
     def __init__(self, db):
