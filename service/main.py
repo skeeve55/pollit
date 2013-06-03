@@ -1,9 +1,8 @@
-import flask
-import DataAccess
+import flask  # @UnresolvedImport
 
-from werkzeug._internal import _log
-from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy import func
+from flask.ext.sqlalchemy import SQLAlchemy  # @UnresolvedImport
+
+from DataAccess import DataAccess
 
 config = {}
 config['schema'] = "mysql" 
@@ -22,7 +21,7 @@ app.debug = True
 
 db = SQLAlchemy(app)
 
-dataAccess = DataAccess.DataAccess(db)
+dataAccess = DataAccess(db)
 
 @app.route('/test/')
 def return_test():

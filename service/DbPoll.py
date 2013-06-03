@@ -1,4 +1,4 @@
-from service.DbBase import Base
+from DbBase import Base
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, Text
 from sqlalchemy.orm import relationship

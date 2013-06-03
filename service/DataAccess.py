@@ -1,32 +1,31 @@
 from DbPoll import DbPoll
 from DbUserVote import DbUserVote
-from DbUser import DbUser
-from DbVote import DbVote
+from DbUser import DbUser  # @UnusedImport
+from DbVote import DbVote  # @UnusedImport
 
 class DataAccess:      
     def __init__(self, db):
         self.db = db
      
     def get_all_polls(self):
-        polls = []
+        result = []
         
         for response in self.db.session.query(DbPoll):
-            pollData = {}
-            pollData['id'] = response.id
-            pollData['topic'] = response.topic
-            pollData['creation'] = response.creation.strftime('%d.%m.%Y')
-            pollData['user'] = response.user.username
+            poll = {}
+            poll['id'] = response.id
+            poll['topic'] = response.topic
+            poll['creation'] = response.creation.strftime('%d.%m.%Y')
+            poll['user'] = response.user.username
             
-            pollData['votes'] = []
+            poll['votes'] = []
             for vote in response.votes:
-                pollData['votes'].append((vote.id, vote.vote, self.get_user_votes_for_vote(vote.id)))        
+                poll['votes'].append((vote.id, vote.vote, self.get_user_votes_for_vote(vote.id)))        
             
-            polls.append(pollData)
-        return polls
+            result.append(poll)
+        return result
 
     def get_user_votes_for_vote(self, vote_id):
-        result = self.db.session.query(DbUserVote).filter(DbUserVote.vote_id == vote_id).count()                
-        return result
+        return self.db.session.query(DbUserVote).filter(DbUserVote.vote_id == vote_id).count()                
     
     def insert_user_vote(self, user_id, vote_id):
         new_user_vote = DbUserVote()
