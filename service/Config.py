@@ -1,5 +1,7 @@
 class Config:
     config = {}
+    
+    # Database
     config['db_schema'] = "mysql" 
     config['db_user'] = "root" 
     config['db_password'] = ""
@@ -7,8 +9,11 @@ class Config:
     config['db_port'] = "3306"
     config['db_database'] = "pollit"
         
+    # Flask
     config['flask_host'] = "localhost"
+    config['flask_port'] = 5555    
 
+    # Properties
     def get_db_connection_string(self):
         if self.config['db_password'] == "":
             return "%s://%s@%s:%s/%s" % (self.config['db_schema'], self.config['db_user'], self.config['db_host'], self.config['db_port'], self.config['db_database'])
@@ -17,3 +22,6 @@ class Config:
         
     def get_flask_host(self):
         return self.config['flask_host'] 
+        
+    def get_flask_port(self):
+        return self.config['flask_port'] 
